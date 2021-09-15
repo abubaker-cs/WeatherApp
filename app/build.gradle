@@ -6,6 +6,7 @@ plugins {
 }
 
 // Secrets Gradle Plugin: https://github.com/google/secrets-gradle-plugin
+// Hide API Keys: https://www.youtube.com/watch?v=X8lYNW_Or2o&ab_channel=GoogleMapsPlatform
 
 android {
     compileSdk 30
