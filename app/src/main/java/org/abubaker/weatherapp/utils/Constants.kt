@@ -1,4 +1,4 @@
-package org.abubaker.weatherapp
+package org.abubaker.weatherapp.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

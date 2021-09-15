@@ -1,4 +1,4 @@
-package org.abubaker.weatherapp
+package org.abubaker.weatherapp.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -22,6 +22,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import org.abubaker.weatherapp.utils.Constants
+import org.abubaker.weatherapp.R
 import org.abubaker.weatherapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
