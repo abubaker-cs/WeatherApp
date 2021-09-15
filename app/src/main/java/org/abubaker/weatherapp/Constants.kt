@@ -35,7 +35,7 @@ object Constants {
                 // SIM DATA Connection
                 activeNetWork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
 
-                // Ethernet
+                // LAN
                 activeNetWork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
 
                 // No Network Available
