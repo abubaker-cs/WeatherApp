@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     /**
      * A function which is used to verify that the location or GPS is enabled or not.
      */
