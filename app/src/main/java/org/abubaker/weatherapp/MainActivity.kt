@@ -106,6 +106,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
+
     /**
      * A function used to show the alert dialog when the permissions are denied and need to allow it from settings app info.
      */
@@ -157,8 +159,36 @@ class MainActivity : AppCompatActivity() {
 
             val longitude = mLastLocation.longitude
             Log.i("Current Longitude", "$longitude")
+
+            // Call the api calling function here
+            getLocationWeatherDetails()
         }
     }
-    // END
+
+
+    /**
+     * Function is used to get the weather details of the current location based on the latitude longitude
+     */
+    private fun getLocationWeatherDetails(){
+
+        // If the Network Connection is available
+        if (Constants.isNetworkAvailable(this@MainActivity)) {
+
+            Toast.makeText(
+                this@MainActivity,
+                "You have connected to the internet. Now you can make an api call.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else {
+
+            Toast.makeText(
+                this@MainActivity,
+                "No internet connection available.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+    }
 
 }
