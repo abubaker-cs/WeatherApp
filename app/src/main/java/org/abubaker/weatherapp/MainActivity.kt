@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     /**
      * A function used to show the alert dialog when the permissions are denied and need to allow it from settings app info.
      */
@@ -169,11 +168,11 @@ class MainActivity : AppCompatActivity() {
     /**
      * Function is used to get the weather details of the current location based on the latitude longitude
      */
-    private fun getLocationWeatherDetails(){
+    private fun getLocationWeatherDetails() {
 
-        // If the Network Connection is available
         if (Constants.isNetworkAvailable(this@MainActivity)) {
 
+            // Network Connection is available
             Toast.makeText(
                 this@MainActivity,
                 "You have connected to the internet. Now you can make an api call.",
@@ -182,6 +181,7 @@ class MainActivity : AppCompatActivity() {
 
         } else {
 
+            // No Connection
             Toast.makeText(
                 this@MainActivity,
                 "No internet connection available.",
