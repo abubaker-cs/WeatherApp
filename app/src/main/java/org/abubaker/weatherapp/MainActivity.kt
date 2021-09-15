@@ -52,11 +52,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         } else {
-//            Toast.makeText(
-//                this,
-//                "Your location provider is already ON.",
-//                Toast.LENGTH_SHORT
-//            ).show()
 
             // Asking the location permission on runtime.
             Dexter.withActivity(this)
@@ -145,7 +140,8 @@ class MainActivity : AppCompatActivity() {
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         mFusedLocationClient.requestLocationUpdates(
-            mLocationRequest, mLocationCallback,
+            mLocationRequest,
+            mLocationCallback,
             Looper.myLooper()
         )
     }
