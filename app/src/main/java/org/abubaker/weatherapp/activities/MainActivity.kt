@@ -22,9 +22,14 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import okhttp3.Call
 import org.abubaker.weatherapp.utils.Constants
 import org.abubaker.weatherapp.R
 import org.abubaker.weatherapp.databinding.ActivityMainBinding
+import org.abubaker.weatherapp.models.WeatherResponse
+import org.abubaker.weatherapp.network.WeatherService
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +40,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
 
         // Initialize the Fused location variable
@@ -126,8 +133,7 @@ class MainActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-            .setNegativeButton("Cancel") { dialog,
-                                           _ ->
+            .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
@@ -173,12 +179,45 @@ class MainActivity : AppCompatActivity() {
 
         if (Constants.isNetworkAvailable(this@MainActivity)) {
 
+            /**
+             * Add the built-in converter factory first. This prevents overriding its
+             * behavior but also ensures correct behavior when using converters that consume all types.
+             */
+            val retrofit: Retrofit = Retrofit.Builder()
+
+                // API base URL.
+                .baseUrl(Constants.BASE_URL)
+
+                /** Add converter factory for serialization and deserialization of objects. */
+                /**
+                 * Create an instance using a default {@link Gson} instance for conversion. Encoding to JSON and
+                 * decoding from JSON (when no charset is specified by a header) will use UTF-8.
+                 */
+                .addConverterFactory(GsonConverterFactory.create())
+
+                /** Create the Retrofit instances. */
+                .build()
+
+            /**
+             * Here we map the service interface in which we declares the end point and the API type
+             *i.e GET, POST and so on along with the request parameter which are required.
+             */
+            val service: WeatherService =
+                retrofit.create<WeatherService>(WeatherService::class.java)
+
+            /** An invocation of a Retrofit method that sends a request to a web-server and returns a response.
+             * Here we pass the required param in the service
+             */
+            // val listCall: Call<WeatherResponse> = service.getWeather(
+            //    latitude, longitude, Constants.METRIC_UNIT, Constants.APP_ID
+            // )
+
             // Network Connection is available
-            Toast.makeText(
-                this@MainActivity,
-                "You have connected to the internet. Now you can make an api call.",
-                Toast.LENGTH_SHORT
-            ).show()
+            // Toast.makeText(
+            //    this@MainActivity,
+            //    "You have connected to the internet. Now you can make an api call.",
+            //    Toast.LENGTH_SHORT
+            // ).show()
 
         } else {
 
