@@ -328,8 +328,11 @@ class MainActivity : AppCompatActivity() {
 
             binding.tvMain.text = weatherList.weather[z].main
             binding.tvMainDescription.text = weatherList.weather[z].description
+
+            // Note: Locale.getDefault() can return country code
             binding.tvTemp.text =
                 weatherList.main.temp.toString() + getUnit(application.resources.configuration.locales.toString())
+
             binding.tvHumidity.text = weatherList.main.humidity.toString() + " per cent"
             binding.tvMin.text = weatherList.main.temp_min.toString() + " min"
             binding.tvMax.text = weatherList.main.temp_max.toString() + " max"
@@ -385,7 +388,10 @@ class MainActivity : AppCompatActivity() {
         //
         var value = "°C"
 
-        //
+        // US -> USA
+        // LR -> Liberia
+        // MM -> Myanmar
+        // Reference: https://www.iso.org/obp/ui/#search
         if ("US" == value || "LR" == value || "MM" == value) {
             value = "°F"
         }
