@@ -220,7 +220,52 @@ class MainActivity : AppCompatActivity() {
             )
 
             // Callback methods are executed using the Retrofit callback executor.
-            listCall.enqueue()
+            listCall.enqueue(object : Callback<WeatherResponse> {
+
+                @SuppressLint("SetTextI18n")
+
+                override fun onResponse(
+                    response: Response<WeatherResponse>,
+                    retrofit: Retrofit
+
+                ) {
+
+                    // Check weather the response is success or not.
+                    if (response!!.isSuccess) {
+
+                        /** The de-serialized response body of a successful response. */
+                        val weatherList: WeatherResponse = response.body()
+
+                        //
+                        Log.i("Response Result", "$weatherList")
+
+                    } else {
+
+                        // If the response is not success then we check the response code.
+                        val sc = response.code()
+
+                        // Checking which type of Response Code we got
+                        when (sc) {
+                            400 -> {
+                                Log.e("Error 400", "Bad Request")
+                            }
+                            404 -> {
+                                Log.e("Error 404", "Not Found")
+                            }
+                            else -> {
+                                Log.e("Error", "Generic Error")
+                            }
+                        }
+                    }
+
+                }
+
+
+                override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                    Log.e("Errorrrrr", t.message.toString())
+                }
+
+            })
 
             // Network Connection is available
             // Toast.makeText(
