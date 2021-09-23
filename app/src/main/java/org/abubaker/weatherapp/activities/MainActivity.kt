@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("Current Longitude", "$longitude")
 
             // Call the api calling function here
-            getLocationWeatherDetails()
+            getLocationWeatherDetails(latitude, longitude)
         }
     }
 
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Function is used to get the weather details of the current location based on the latitude longitude
      */
-    private fun getLocationWeatherDetails() {
+    private fun getLocationWeatherDetails(latitude: Double, longitude: Double) {
 
         if (Constants.isNetworkAvailable(this@MainActivity)) {
 
@@ -208,9 +208,14 @@ class MainActivity : AppCompatActivity() {
             /** An invocation of a Retrofit method that sends a request to a web-server and returns a response.
              * Here we pass the required param in the service
              */
-            // val listCall: Call<WeatherResponse> = service.getWeather(
-            //    latitude, longitude, Constants.METRIC_UNIT, Constants.APP_ID
-            // )
+            val listCall: Call<WeatherResponse> = service.getWeather(
+                latitude,
+                longitude,
+                Constants.METRIC_UNIT,
+                Constants.APP_ID
+            )
+
+            listCall.enqueue()
 
             // Network Connection is available
             // Toast.makeText(
