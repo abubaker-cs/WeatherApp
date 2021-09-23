@@ -11,11 +11,13 @@
         android:padding="@dimen/main_screen_content_padding"
         tools:context=".activities.MainActivity">
 
+        <!-- Row 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <!-- Weather -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,6 +70,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Degree -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -122,6 +125,7 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
+        <!-- Row 2 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -250,6 +254,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/card_view_content_padding">
 
+                <!-- Row 3: Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -302,6 +307,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
+                    <!-- Sunrise -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -325,6 +331,7 @@
                             tools:text="Sunrise" />
                     </LinearLayout>
 
+                    <!-- Sunset -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
