@@ -335,21 +335,37 @@ class MainActivity : AppCompatActivity() {
             binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong())
 
             // Here we update the main icon
+            // https://openweathermap.org/weather-conditions
             when (weatherList.weather[z].icon) {
+
+                // Clear Sky
                 "01d" -> binding.ivMain.setImageResource(R.drawable.sunny)
+                "01n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+
+                // Few Clouds
                 "02d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "02n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+
+                // Scattered Clouds
                 "03d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "03n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+
+                // Broken Clouds
                 "04d" -> binding.ivMain.setImageResource(R.drawable.cloud)
                 "04n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+
+                // Rain
                 "10d" -> binding.ivMain.setImageResource(R.drawable.rain)
-                "11d" -> binding.ivMain.setImageResource(R.drawable.storm)
-                "13d" -> binding.ivMain.setImageResource(R.drawable.snowflake)
-                "01n" -> binding.ivMain.setImageResource(R.drawable.cloud)
-                "02n" -> binding.ivMain.setImageResource(R.drawable.cloud)
-                "03n" -> binding.ivMain.setImageResource(R.drawable.cloud)
                 "10n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+
+                // Thunderstorm
+                "11d" -> binding.ivMain.setImageResource(R.drawable.storm)
                 "11n" -> binding.ivMain.setImageResource(R.drawable.rain)
+
+                // Snow
+                "13d" -> binding.ivMain.setImageResource(R.drawable.snowflake)
                 "13n" -> binding.ivMain.setImageResource(R.drawable.snowflake)
+
             }
         }
     }
@@ -374,7 +390,7 @@ class MainActivity : AppCompatActivity() {
 
         @SuppressLint("SimpleDateFormat")
         val sdf = SimpleDateFormat("HH:mm:ss")
-        
+
         //
         sdf.timeZone = TimeZone.getDefault()
 
