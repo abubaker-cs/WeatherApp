@@ -225,16 +225,15 @@ class MainActivity : AppCompatActivity() {
                 @SuppressLint("SetTextI18n")
 
                 override fun onResponse(
-                    response: Response<WeatherResponse>,
-                    retrofit: Retrofit
-
+                    call: Call<WeatherResponse>,
+                    response: Response<WeatherResponse>
                 ) {
 
                     // Check weather the response is success or not.
-                    if (response!!.isSuccess) {
+                    if (response!!.isSuccessful) {
 
                         /** The de-serialized response body of a successful response. */
-                        val weatherList: WeatherResponse = response.body()
+                        val weatherList: WeatherResponse? = response.body()
 
                         //
                         Log.i("Response Result", "$weatherList")
@@ -246,12 +245,18 @@ class MainActivity : AppCompatActivity() {
 
                         // Checking which type of Response Code we got
                         when (sc) {
+
+                            // Bad Request
                             400 -> {
                                 Log.e("Error 400", "Bad Request")
                             }
+
+                            // Not Found
                             404 -> {
                                 Log.e("Error 404", "Not Found")
                             }
+
+                            // Generic
                             else -> {
                                 Log.e("Error", "Generic Error")
                             }
@@ -260,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-
+                // On failure
                 override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                     Log.e("Errorrrrr", t.message.toString())
                 }
