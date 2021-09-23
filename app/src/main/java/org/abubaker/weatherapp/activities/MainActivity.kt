@@ -377,7 +377,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Function is used to get the temperature unit value.
      */
-    private fun getUnit(value: String): String? {
+    private fun getUnit(value: String): String {
 
         //
         Log.i("unitttttt", value)
