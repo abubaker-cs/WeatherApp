@@ -243,6 +243,11 @@ class MainActivity : AppCompatActivity() {
                         /** The de-serialized response body of a successful response. */
                         val weatherList: WeatherResponse? = response.body()
 
+                        // Populate values received from weatherList (Response) into the UI
+                        if (weatherList != null) {
+                            setupUI(weatherList)
+                        }
+
                         //
                         Log.i("Response Result", "$weatherList")
 
@@ -333,7 +338,7 @@ class MainActivity : AppCompatActivity() {
             binding.tvCountry.text = weatherList.sys.country
             binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong())
             binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong())
-            
+
             // Reference for Icons List (Codes): https://openweathermap.org/weather-conditions
             when (weatherList.weather[z].icon) {
 
@@ -373,11 +378,19 @@ class MainActivity : AppCompatActivity() {
      * Function is used to get the temperature unit value.
      */
     private fun getUnit(value: String): String? {
+
+        //
         Log.i("unitttttt", value)
+
+        //
         var value = "°C"
+
+        //
         if ("US" == value || "LR" == value || "MM" == value) {
             value = "°F"
         }
+
+        //
         return value
     }
 
