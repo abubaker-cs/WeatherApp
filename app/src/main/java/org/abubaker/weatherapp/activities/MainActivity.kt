@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
 
                     // Check weather the response is success or not.
-                    if (response!!.isSuccessful) {
+                    if (response.isSuccessful) {
 
                         /** The de-serialized response body of a successful response. */
                         val weatherList: WeatherResponse? = response.body()
@@ -241,10 +241,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
 
                         // If the response is not success then we check the response code.
-                        val sc = response.code()
-
-                        // Checking which type of Response Code we got
-                        when (sc) {
+                        when (response.code()) {
 
                             // Bad Request
                             400 -> {
