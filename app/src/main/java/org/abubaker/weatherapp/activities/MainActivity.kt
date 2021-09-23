@@ -219,6 +219,9 @@ class MainActivity : AppCompatActivity() {
                 Constants.APP_ID
             )
 
+            // Used to show the progress dialog
+            showCustomProgressDialog()
+
             // Callback methods are executed using the Retrofit callback executor.
             listCall.enqueue(object : Callback<WeatherResponse> {
 
@@ -231,6 +234,9 @@ class MainActivity : AppCompatActivity() {
 
                     // Check weather the response is success or not.
                     if (response.isSuccessful) {
+
+                        // Hides the progress dialog
+                        hideProgressDialog()
 
                         /** The de-serialized response body of a successful response. */
                         val weatherList: WeatherResponse? = response.body()
