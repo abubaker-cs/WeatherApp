@@ -333,9 +333,8 @@ class MainActivity : AppCompatActivity() {
             binding.tvCountry.text = weatherList.sys.country
             binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong())
             binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong())
-
-            // Here we update the main icon
-            // https://openweathermap.org/weather-conditions
+            
+            // Reference for Icons List (Codes): https://openweathermap.org/weather-conditions
             when (weatherList.weather[z].icon) {
 
                 // Clear Sky
