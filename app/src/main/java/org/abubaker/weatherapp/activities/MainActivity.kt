@@ -269,13 +269,6 @@ class MainActivity : AppCompatActivity() {
 
             })
 
-            // Network Connection is available
-            // Toast.makeText(
-            //    this@MainActivity,
-            //    "You have connected to the internet. Now you can make an api call.",
-            //    Toast.LENGTH_SHORT
-            // ).show()
-
         } else {
 
             // No Connection
