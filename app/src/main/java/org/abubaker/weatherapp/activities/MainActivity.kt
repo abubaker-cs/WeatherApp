@@ -31,6 +31,8 @@ import org.abubaker.weatherapp.network.WeatherService
 import retrofit2.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -308,6 +310,76 @@ class MainActivity : AppCompatActivity() {
         if (mProgressDialog != null) {
             mProgressDialog!!.dismiss()
         }
+    }
+
+    /**
+     * Function is used to set the result in the UI elements.
+     */
+    private fun setupUI(weatherList: WeatherResponse) {
+
+        // For loop to get the required data. And all are populated in the UI.
+        for (z in weatherList.weather.indices) {
+            Log.i("NAMEEEEEEEE", weatherList.weather[z].main)
+
+            binding.tvMain.text = weatherList.weather[z].main
+            binding.tvMainDescription.text = weatherList.weather[z].description
+            binding.tvTemp.text =
+                weatherList.main.temp.toString() + getUnit(application.resources.configuration.locales.toString())
+            binding.tvHumidity.text = weatherList.main.humidity.toString() + " per cent"
+            binding.tvMin.text = weatherList.main.temp_min.toString() + " min"
+            binding.tvMax.text = weatherList.main.temp_max.toString() + " max"
+            binding.tvSpeed.text = weatherList.wind.speed.toString()
+            binding.tvName.text = weatherList.name
+            binding.tvCountry.text = weatherList.sys.country
+            binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong())
+            binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong())
+
+            // Here we update the main icon
+            when (weatherList.weather[z].icon) {
+                "01d" -> binding.ivMain.setImageResource(R.drawable.sunny)
+                "02d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "03d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "04d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "04n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "10d" -> binding.ivMain.setImageResource(R.drawable.rain)
+                "11d" -> binding.ivMain.setImageResource(R.drawable.storm)
+                "13d" -> binding.ivMain.setImageResource(R.drawable.snowflake)
+                "01n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "02n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "03n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "10n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                "11n" -> binding.ivMain.setImageResource(R.drawable.rain)
+                "13n" -> binding.ivMain.setImageResource(R.drawable.snowflake)
+            }
+        }
+    }
+
+    /**
+     * Function is used to get the temperature unit value.
+     */
+    private fun getUnit(value: String): String? {
+        Log.i("unitttttt", value)
+        var value = "°C"
+        if ("US" == value || "LR" == value || "MM" == value) {
+            value = "°F"
+        }
+        return value
+    }
+
+    /**
+     * The function is used to get the formatted time based on the Format and the LOCALE we pass to it.
+     */
+    private fun unixTime(timex: Long): String? {
+        val date = Date(timex * 1000L)
+
+        @SuppressLint("SimpleDateFormat")
+        val sdf = SimpleDateFormat("HH:mm:ss")
+        
+        //
+        sdf.timeZone = TimeZone.getDefault()
+
+        //
+        return sdf.format(date)
     }
 
 }
