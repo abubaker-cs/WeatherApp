@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
@@ -18,6 +19,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.location.*
 import com.karumi.dexter.Dexter
@@ -174,8 +176,20 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun requestLocationData() {
 
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        // val mLocationRequest = LocationRequest()
+        // mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        //
+        val mLocationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        //
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
 
         mFusedLocationClient.requestLocationUpdates(
             mLocationRequest,
@@ -198,6 +212,9 @@ class MainActivity : AppCompatActivity() {
 
             // Call the api calling function here
             getLocationWeatherDetails(latitude, longitude)
+
+            // This will ensure that the data will be refreshed while displaying the LOADING animation
+            mFusedLocationClient.removeLocationUpdates(this);
         }
     }
 
