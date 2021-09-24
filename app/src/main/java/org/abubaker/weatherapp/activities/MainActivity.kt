@@ -67,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         // which we will define in the constants.kt file
         mSharedPreferences = getSharedPreferences(Constants.PREFERENCE_NAME, Context.MODE_PRIVATE)
 
+        // On the initial load, it will load data from the SharedPreferences before fetching updates from the server
+        setupUI()
+
         // Check here whether GPS is ON or OFF using the method which we have created
         if (!isLocationEnabled()) {
             Toast.makeText(
@@ -394,9 +397,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupUI() {
 
         // Get list from our SharedPreferences
+        // In case if hte received data will be EMPTY, then we will use our default value: ""
         val weatherResponseJSONString =
             mSharedPreferences.getString(Constants.WEATHER_RESPONSE_DATA, "")
 
+        // If the STRING is NOT EMPTY then, populate values in the UI
         if (!weatherResponseJSONString.isNullOrEmpty()) {
 
             // Get DATA back from the SharedPreferences
