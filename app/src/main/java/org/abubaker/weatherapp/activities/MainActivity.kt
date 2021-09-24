@@ -339,8 +339,9 @@ class MainActivity : AppCompatActivity() {
             binding.tvSpeed.text = weatherList.wind.speed.toString()
             binding.tvName.text = weatherList.name
             binding.tvCountry.text = weatherList.sys.country
-            binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong())
-            binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong())
+            binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong()) + " AM"
+            binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong()) + " PM"
+
 
             // Reference for Icons List (Codes): https://openweathermap.org/weather-conditions
             when (weatherList.weather[z].icon) {

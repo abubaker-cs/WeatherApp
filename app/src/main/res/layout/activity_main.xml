@@ -316,7 +316,7 @@
 
                         <ImageView
                             android:id="@+id/iv_sunrise"
-                            android:layout_width="@dimen/identification_image_size"
+                            android:layout_width="@dimen/img_width_sunrise_sunset"
                             android:layout_height="@dimen/identification_image_size"
                             android:layout_marginEnd="@dimen/identification_image_marginEnd"
                             android:contentDescription="@string/image_contentDescription"
@@ -324,8 +324,9 @@
 
                         <TextView
                             android:id="@+id/tv_sunrise_time"
-                            android:layout_width="match_parent"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:textColor="@color/secondary_text_color"
                             android:textSize="@dimen/value_text_size"
                             tools:text="Sunrise" />
@@ -340,7 +341,7 @@
 
                         <ImageView
                             android:id="@+id/iv_sunset"
-                            android:layout_width="@dimen/identification_image_size"
+                            android:layout_width="@dimen/img_width_sunrise_sunset"
                             android:layout_height="@dimen/identification_image_size"
                             android:layout_marginEnd="@dimen/identification_image_marginEnd"
                             android:contentDescription="@string/image_contentDescription"
@@ -348,8 +349,9 @@
 
                         <TextView
                             android:id="@+id/tv_sunset_time"
-                            android:layout_width="match_parent"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:textAlignment="center"
                             android:textColor="@color/secondary_text_color"
                             android:textSize="@dimen/value_text_size"
                             tools:text="Sunset" />
