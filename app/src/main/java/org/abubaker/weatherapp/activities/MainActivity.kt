@@ -382,10 +382,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun getUnit(value: String): String {
 
-        //
-        Log.i("unitttttt", value)
+        // Log for reference
+        Log.i("Temperature Unit", value)
 
-        //
+        // Default Value
         var value = "°C"
 
         // US -> USA
@@ -396,7 +396,7 @@ class MainActivity : AppCompatActivity() {
             value = "°F"
         }
 
-        //
+        // Return chosen UNIT
         return value
     }
 
