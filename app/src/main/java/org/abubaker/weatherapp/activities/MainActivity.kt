@@ -408,6 +408,8 @@ class MainActivity : AppCompatActivity() {
 
         // We are going to pass the time as a Long Value:
         // i.e. 1632462389 = (Friday, September 24, 2021 5:46:24 AM)
+
+        // ... * 1000L will help in converting time from milliseconds
         val date = Date(timex * 1000L)
 
         // Reference: How to set 24-hours format for date on java?

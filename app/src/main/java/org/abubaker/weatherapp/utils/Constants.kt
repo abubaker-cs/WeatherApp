@@ -9,6 +9,7 @@ import org.abubaker.weatherapp.BuildConfig
 object Constants {
 
     // Add the API key and Base URL and Metric unit here from openweathermap
+    // URL: https://api.openweathermap.org/data/2.5/forecast?callback=response&q={CITY}&appid={API_KEY}
     const val APP_ID: String = BuildConfig.WeatherApp_KEY
     const val BASE_URL: String = "http://api.openweathermap.org/data/"
     const val METRIC_UNIT: String = "metric"
