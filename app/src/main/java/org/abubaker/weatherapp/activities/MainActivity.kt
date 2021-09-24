@@ -107,18 +107,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * inflate menu_main.xml file and add functionality for the clicked item
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-        return trueK
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.action_refresh -> {
-                getLocationWeatherDetails()
+                // getLocationWeatherDetails()
+                requestLocationData()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
