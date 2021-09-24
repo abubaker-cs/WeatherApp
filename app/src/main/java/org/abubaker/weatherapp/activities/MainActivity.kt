@@ -410,9 +410,17 @@ class MainActivity : AppCompatActivity() {
         // i.e. 1632462389 = (Friday, September 24, 2021 5:46:24 AM)
         val date = Date(timex * 1000L)
 
-        // SimpleDateFormat() will convert time into HH:mm:ss based on the default TimeZone
+
+
+        // Reference: How to set 24-hours format for date on java?
+        // https://stackoverflow.com/questions/8907509/how-to-set-24-hours-format-for-date-on-java
+
+        // hh:mm:ss = 12 Hour Format
+        // HH:mm:ss = 24 Hour Format
         @SuppressLint("SimpleDateFormat")
-        val sdf = SimpleDateFormat("HH:mm:ss")
+        val sdf = SimpleDateFormat("hh:mm:ss")
+
+        // Timezone = Convert to DefaultK Timezone
         sdf.timeZone = TimeZone.getDefault()
 
         // It will return final formatted and converted time/date
