@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.location.*
+import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -62,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         // Initialize the Fused location variable
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Initialize the SharedPreferences variable
+        // Initialize the SharedPreferences variable (it requires a NAME and a MODE,
+        // which we will define in the constants.kt file
         mSharedPreferences = getSharedPreferences(Constants.PREFERENCE_NAME, Context.MODE_PRIVATE)
 
         // Check here whether GPS is ON or OFF using the method which we have created
@@ -298,9 +300,21 @@ class MainActivity : AppCompatActivity() {
                         /** The de-serialized response body of a successful response. */
                         val weatherList: WeatherResponse? = response.body()
 
+                        // Store the data using SharedPreferences
+                        val weatherResponseJSONString = Gson().toJson(weatherList)
+                        val editor = mSharedPreferences.edit()
+
+                        // weatherResponseJSONString = We are storing weather_response_data as a String
+                        // at position = WEATHER_RESPONSE_DATA
+                        editor.putString(Constants.WEATHER_RESPONSE_DATA, weatherResponseJSONString)
+
+                        // Commit the changes
+                        editor.apply()
+
                         // Populate values received from weatherList (Response) into the UI
                         if (weatherList != null) {
-                            setupUI(weatherList)
+                            // setupUI(weatherList)
+                            setupUI()
                         }
 
                         //
@@ -375,62 +389,77 @@ class MainActivity : AppCompatActivity() {
     /**
      * Function is used to set the result in the UI elements.
      */
-    private fun setupUI(weatherList: WeatherResponse) {
 
-        // For loop to get the required data. And all are populated in the UI.
-        for (z in weatherList.weather.indices) {
-            Log.i("NAMEEEEEEEE", weatherList.weather[z].main)
+    // private fun setupUI(weatherList: WeatherResponse)
+    private fun setupUI() {
 
-            binding.tvMain.text = weatherList.weather[z].main
-            binding.tvMainDescription.text = weatherList.weather[z].description
+        // Get list from our SharedPreferences
+        val weatherResponseJSONString =
+            mSharedPreferences.getString(Constants.WEATHER_RESPONSE_DATA, "")
 
-            // Note: Locale.getDefault() can return country code
-            binding.tvTemp.text =
-                weatherList.main.temp.toString() + getUnit(application.resources.configuration.locales.toString())
+        if (!weatherResponseJSONString.isNullOrEmpty()) {
 
-            binding.tvHumidity.text = weatherList.main.humidity.toString() + " per cent"
-            binding.tvMin.text = weatherList.main.temp_min.toString() + " min"
-            binding.tvMax.text = weatherList.main.temp_max.toString() + " max"
-            binding.tvSpeed.text = weatherList.wind.speed.toString()
-            binding.tvName.text = weatherList.name
-            binding.tvCountry.text = weatherList.sys.country
-            binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong()) + " AM"
-            binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong()) + " PM"
+            // Get DATA back from the SharedPreferences
+            val weatherList =
+                Gson().fromJson(weatherResponseJSONString, WeatherResponse::class.java)
+
+            // For loop to get the required data. And all are populated in the UI.
+            for (z in weatherList.weather.indices) {
+                Log.i("NAMEEEEEEEE", weatherList.weather[z].main)
+
+                binding.tvMain.text = weatherList.weather[z].main
+                binding.tvMainDescription.text = weatherList.weather[z].description
+
+                // Note: Locale.getDefault() can return country code
+                binding.tvTemp.text =
+                    weatherList.main.temp.toString() + getUnit(application.resources.configuration.locales.toString())
+
+                binding.tvHumidity.text = weatherList.main.humidity.toString() + " per cent"
+                binding.tvMin.text = weatherList.main.temp_min.toString() + " min"
+                binding.tvMax.text = weatherList.main.temp_max.toString() + " max"
+                binding.tvSpeed.text = weatherList.wind.speed.toString()
+                binding.tvName.text = weatherList.name
+                binding.tvCountry.text = weatherList.sys.country
+                binding.tvSunriseTime.text = unixTime(weatherList.sys.sunrise.toLong()) + " AM"
+                binding.tvSunsetTime.text = unixTime(weatherList.sys.sunset.toLong()) + " PM"
 
 
-            // Reference for Icons List (Codes): https://openweathermap.org/weather-conditions
-            when (weatherList.weather[z].icon) {
+                // Reference for Icons List (Codes): https://openweathermap.org/weather-conditions
+                when (weatherList.weather[z].icon) {
 
-                // Clear Sky
-                "01d" -> binding.ivMain.setImageResource(R.drawable.sunny)
-                "01n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    // Clear Sky
+                    "01d" -> binding.ivMain.setImageResource(R.drawable.sunny)
+                    "01n" -> binding.ivMain.setImageResource(R.drawable.cloud)
 
-                // Few Clouds
-                "02d" -> binding.ivMain.setImageResource(R.drawable.cloud)
-                "02n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    // Few Clouds
+                    "02d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    "02n" -> binding.ivMain.setImageResource(R.drawable.cloud)
 
-                // Scattered Clouds
-                "03d" -> binding.ivMain.setImageResource(R.drawable.cloud)
-                "03n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    // Scattered Clouds
+                    "03d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    "03n" -> binding.ivMain.setImageResource(R.drawable.cloud)
 
-                // Broken Clouds
-                "04d" -> binding.ivMain.setImageResource(R.drawable.cloud)
-                "04n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    // Broken Clouds
+                    "04d" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    "04n" -> binding.ivMain.setImageResource(R.drawable.cloud)
 
-                // Rain
-                "10d" -> binding.ivMain.setImageResource(R.drawable.rain)
-                "10n" -> binding.ivMain.setImageResource(R.drawable.cloud)
+                    // Rain
+                    "10d" -> binding.ivMain.setImageResource(R.drawable.rain)
+                    "10n" -> binding.ivMain.setImageResource(R.drawable.cloud)
 
-                // Thunderstorm
-                "11d" -> binding.ivMain.setImageResource(R.drawable.storm)
-                "11n" -> binding.ivMain.setImageResource(R.drawable.rain)
+                    // Thunderstorm
+                    "11d" -> binding.ivMain.setImageResource(R.drawable.storm)
+                    "11n" -> binding.ivMain.setImageResource(R.drawable.rain)
 
-                // Snow
-                "13d" -> binding.ivMain.setImageResource(R.drawable.snowflake)
-                "13n" -> binding.ivMain.setImageResource(R.drawable.snowflake)
+                    // Snow
+                    "13d" -> binding.ivMain.setImageResource(R.drawable.snowflake)
+                    "13n" -> binding.ivMain.setImageResource(R.drawable.snowflake)
 
+                }
             }
         }
+
+
     }
 
     /**
