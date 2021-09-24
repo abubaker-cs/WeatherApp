@@ -402,17 +402,20 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * The function is used to get the formatted time based on the Format and the LOCALE we pass to it.
+     * Reference: Epoch & Unix Timestamp Conversion Tools - https://www.epochconverter.com/
      */
     private fun unixTime(timex: Long): String? {
+
+        // We are going to pass the time as a Long Value:
+        // i.e. 1632462389 = (Friday, September 24, 2021 5:46:24 AM)
         val date = Date(timex * 1000L)
 
+        // SimpleDateFormat() will convert time into HH:mm:ss based on the default TimeZone
         @SuppressLint("SimpleDateFormat")
         val sdf = SimpleDateFormat("HH:mm:ss")
-
-        //
         sdf.timeZone = TimeZone.getDefault()
 
-        //
+        // It will return final formatted and converted time/date
         return sdf.format(date)
     }
 
