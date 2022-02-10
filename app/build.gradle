@@ -42,10 +42,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     testImplementation 'junit:junit:4.13.2'
 
     // DEXTER (Depreciated):
@@ -53,10 +53,10 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.3'
 
     // Location
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     // GSON Library
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     // Dexter runtime permissions
     // https://github.com/Karumi/Dexter
